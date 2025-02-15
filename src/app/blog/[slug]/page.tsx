@@ -11,9 +11,10 @@ interface PageProps {
 }
 
 export default async function Page({ params }: PageProps) {
+  const { slug } = await params; // await the params object
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <PostContent slug={params.slug} />
+      <PostContent slug={slug} />
     </Suspense>
   );
 }

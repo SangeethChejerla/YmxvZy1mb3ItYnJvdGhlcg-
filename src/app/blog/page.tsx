@@ -40,7 +40,7 @@ async function BlogPage() {
                 Created at: {post.createdAt.toLocaleString()}
               </p>
               <div className="mt-2 flex gap-2">
-                <Link href={`/edit/${post.id}`}>
+                <Link href={`/edit/${post.slug}`}>
                   <Button variant="outline" size="sm">
                     Edit
                   </Button>
