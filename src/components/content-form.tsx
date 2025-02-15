@@ -118,60 +118,37 @@ export default function ContentForm({ initialData }: ContentFormProps) {
 
         {/* Tag Selection */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Category
-          </label>
+          <label className="text-sm font-medium text-white">Category</label>
           <Select onValueChange={setTag} defaultValue={initialData?.tag}>
             <SelectTrigger
-              className="h-12 px-4 border-gray-200 dark:border-gray-800 rounded-xl
-                                    bg-white dark:bg-gray-900 transition-all duration-200"
+              className="h-12 px-4 text-white border-gray-800 rounded-xl
+                                    bg-gray-900 transition-all duration-200"
             >
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
             <SelectContent
-              className="bg-white dark:bg-gray-900 border-gray-200 
-                                   dark:border-gray-800 rounded-lg shadow-lg"
+              className="text-white bg-gray-900 
+                                  border-gray-800 rounded-lg shadow-lg"
             >
-              <SelectItem
-                value="none"
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
+              <SelectItem value="none" className="hover:bg-gray-800">
                 None
               </SelectItem>
-              <SelectItem
-                value="History"
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
+              <SelectItem value="History" className="hover:bg-gray-800">
                 History
               </SelectItem>
-              <SelectItem
-                value="Travel"
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
+              <SelectItem value="Travel" className="hover:bg-gray-800">
                 Travel
               </SelectItem>
-              <SelectItem
-                value="Food"
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
+              <SelectItem value="Food" className="hover:bg-gray-800">
                 Food
               </SelectItem>
-              <SelectItem
-                value="Etymology"
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
+              <SelectItem value="Etymology" className="hover:bg-gray-800">
                 Etymology
               </SelectItem>
-              <SelectItem
-                value="Personal"
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
+              <SelectItem value="Personal" className="hover:bg-gray-800">
                 Personal
               </SelectItem>
-              <SelectItem
-                value="Other"
-                className="hover:bg-gray-50 dark:hover:bg-gray-800"
-              >
+              <SelectItem value="Other" className="hover:bg-gray-800">
                 Other
               </SelectItem>
             </SelectContent>
@@ -180,9 +157,7 @@ export default function ContentForm({ initialData }: ContentFormProps) {
 
         {/* Editor Section */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Content
-          </label>
+          <label className="text-sm font-medium text-white">Content</label>
           <div
             className="rounded-xl overflow-hidden border border-gray-200 
                         dark:border-gray-800 transition-all duration-200
