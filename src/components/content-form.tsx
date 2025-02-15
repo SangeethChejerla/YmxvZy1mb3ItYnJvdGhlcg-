@@ -87,31 +87,27 @@ export default function ContentForm({ initialData }: ContentFormProps) {
         {/* Title and Slug Group */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Title
-            </label>
+            <label className="text-sm font-medium text-white">Title</label>
             <Input
               type="text"
               placeholder="Enter post title..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="h-12 px-4 border-gray-200 dark:border-gray-800 rounded-xl 
+              className="h-12 px-4 border-gray-900 rounded-xl 
                         focus:ring-2 focus:ring-purple-500 focus:border-transparent
-                        bg-white dark:bg-gray-900 transition-all duration-200"
+                       bg-gray-900 transition-all duration-200"
             />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Slug
-            </label>
+            <label className="text-sm font-medium text-white">Slug</label>
             <Input
               type="text"
               placeholder="url-friendly-slug"
               value={slug}
               onChange={(e) => setSlug(e.target.value)}
               readOnly={!!initialData}
-              className="h-12 px-4 border-gray-200 dark:border-gray-800 rounded-xl 
-                        bg-gray-50 dark:bg-gray-800 transition-all duration-200"
+              className="h-12 px-4 border-gray-900 rounded-xl 
+                        bg-gray-900 transition-all duration-200"
             />
           </div>
         </div>
