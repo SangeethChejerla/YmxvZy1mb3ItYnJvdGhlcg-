@@ -1,59 +1,36 @@
-// app/blog/page.tsx
-import { deleteBlogAction, getAllPosts } from '@/actions/blogAction';
+import { getAllPosts } from '@/actions/blogAction';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { revalidatePath } from 'next/cache';
 import Link from 'next/link';
 import { Suspense } from 'react';
-
-// Create a server action
-async function deletePost(postId: string) {
-  'use server';
-  await deleteBlogAction(postId);
-  revalidatePath('/blog');
-}
 
 async function BlogPage() {
   const allPosts = await getAllPosts();
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Blog Posts</h1>
-      <Link href="/post">
-        <Button className="mb-4">Create New Post</Button>
-      </Link>
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <h1 className="text-4xl font-bold mb-8 text-center">Blog Posts</h1>
+
       <Suspense fallback={<p>Loading posts...</p>}>
-        <ul>
+        <div className="flex flex-col gap-6">
           {allPosts.map((post) => (
-            <li key={post.id} className="mb-4 p-4 border rounded-md shadow">
-              <h2 className="text-xl font-semibold">
-                <Link href={`/blog/${post.slug}`} className="hover:underline">
-                  {post.title}
-                </Link>
-              </h2>
-              {post.tag && (
-                <Badge variant="secondary" className="mt-2">
-                  {post.tag}
-                </Badge>
-              )}
-              <p className="text-gray-500 mt-1">
-                Created at: {post.createdAt.toLocaleString()}
-              </p>
-              <div className="mt-2 flex gap-2">
-                <Link href={`/edit/${post.slug}`}>
-                  <Button variant="outline" size="sm">
-                    Edit
-                  </Button>
-                </Link>
-                <form action={deletePost.bind(null, post.id)}>
-                  <Button type="submit" variant="destructive" size="sm">
-                    Delete
-                  </Button>
-                </form>
-              </div>
-            </li>
+            <Link key={post.id} href={`/blog/${post.slug}`} className="group">
+              <article className="flex flex-col p-6 rounded-xl bg-card hover:shadow-lg transition-all duration-300 border border-border hover:border-primary/20">
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-start justify-between">
+                    <h2 className="text-2xl font-semibold group-hover:text-primary transition-colors">
+                      {post.title}
+                    </h2>
+                    {post.tag && (
+                      <Badge variant="secondary" className="ml-2">
+                        {post.tag}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+              </article>
+            </Link>
           ))}
-        </ul>
+        </div>
       </Suspense>
     </div>
   );
