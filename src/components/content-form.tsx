@@ -1,4 +1,4 @@
-// components/content-form.tsx
+
 'use client';
 
 import { createBlogAction, updateBlogAction } from '@/actions/blogAction'; // Corrected import path
@@ -15,7 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Post } from '@/db/schema'; // Corrected import path
+import { Post } from '@/db/schema'; 
 import { useRouter } from 'next/navigation';
 
 export const defaultValue = {
@@ -34,7 +34,19 @@ interface ContentFormProps {
 export default function ContentForm({ initialData }: ContentFormProps) {
   const [title, setTitle] = useState(initialData?.title || '');
   const [slug, setSlug] = useState(initialData?.slug || '');
-  const [content, setContent] = useState<string>(initialData?.content || '');
+  const [content, setContent] = useState<string>(() => {
+    if (initialData?.content) {
+      try {
+        // Try to parse the content as JSON first
+        JSON.parse(initialData.content);
+        return initialData.content;
+      } catch {
+        // If parsing fails, assume it's HTML content
+        return JSON.stringify(defaultValue);
+      }
+    }
+    return JSON.stringify(defaultValue);
+  });
   const [tag, setTag] = useState<string | undefined>(
     initialData?.tag || undefined
   );
@@ -59,10 +71,15 @@ export default function ContentForm({ initialData }: ContentFormProps) {
           title,
           slug,
           content,
-          tag,
+          tag: tag as "History" | "Travel" | "Food" | "Etymology" | "Personal" | "Other" | null | undefined
         });
       } else {
-        result = await createBlogAction({ title, slug, content, tag });
+        result = await createBlogAction({
+          title,
+          slug,
+          content,
+          tag: tag as "History" | "Travel" | "Food" | "Etymology" | "Personal" | "Other" | null | undefined
+        });
       }
 
       if (result?.error) {
@@ -112,10 +129,10 @@ export default function ContentForm({ initialData }: ContentFormProps) {
           </div>
         </div>
 
-        {/* Tag Selection */}
+      
         <div className="space-y-2">
           <label className="text-sm font-medium text-white">Category</label>
-          <Select onValueChange={setTag} defaultValue={initialData?.tag}>
+          <Select onValueChange={(value: string) => setTag(value)} defaultValue={initialData?.tag || undefined}>
             <SelectTrigger
               className="h-12 px-4 text-white border-gray-800 rounded-xl
                                     bg-gray-900 transition-all duration-200"
@@ -161,9 +178,11 @@ export default function ContentForm({ initialData }: ContentFormProps) {
           >
             <Editor
               initialValue={
-                initialData ? JSON.parse(initialData.content) : defaultValue
+                content ? JSON.parse(content) : defaultValue
               }
-              onChange={setContent}
+              onChange={(html) => {
+                setContent(JSON.stringify({ type: 'doc', content: [{ type: 'paragraph', content: [{ type: 'text', text: html }] }] }));
+              }}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-// app/[slug]/edit/page.tsx
+
 import { getPostBySlug } from '@/actions/blogAction';
 import ContentForm from '@/components/content-form';
 import { notFound } from 'next/navigation';
@@ -8,7 +8,7 @@ interface EditPostPageProps {
 }
 
 export default async function EditPostPage({ params }: EditPostPageProps) {
-  const { slug } = await params; // Await the params object
+  const { slug } = await params; 
   const post = await getPostBySlug(slug);
 
   if (!post) {
